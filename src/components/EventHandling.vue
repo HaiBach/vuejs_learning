@@ -9,6 +9,9 @@
 <script setup>
   const EventHandling = {
     data() {
+      return {
+        message: 'Xin chào mọi người!'
+      }
     },
     methods: {
       reserveMessage() {
@@ -20,5 +23,5 @@
     }
   }
 
-  Vue.createApp(EventHandling).moute('#event-handling')
+  // Vue.createApp(EventHandling).moute('#event-handling') 
 </script>
