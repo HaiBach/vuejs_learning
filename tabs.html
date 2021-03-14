@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <style scoped>
+      button {
+        padding: 5px 20px;
+        margin: 2px;
+        border-radius: 6px;
+        border: 1px solid #999;
+        color: #333;
+        background-color: #fff;
+        cursor: pointer;
+      }
+      button.active {
+        border-color: #333;
+        background-color: #333;
+        color: #fff;
+      }
+      .demo-tab {
+        margin-top: 10px;
+        padding: 20px;
+        border: 1px solid #999;
+        border-radius: 6px;
+      }
+    </style>
+
+    <div id="app">
+      <button
+        v-for="tab in tabs"
+        v-bind:key="tab"
+        v-bind:class="['tab-button', {active: currentTab === tab}]"
+        v-on:click="currentTab = tab"
+      >{{ tab }}</button>
+      
+      <component v-bind:is="currentTabComponent" class="tab"></component>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            currentTab: 'Home',
+            tabs: ['Home', 'Posts', 'Archive']
+          }
+        },
+        computed: {
+          currentTabComponent() {
+            return 'tab-' + this.currentTab.toLowerCase()
+          }
+        }
+      })
+
+      app.component('tab-home', {
+        template: `<div class="demo-tab">Home Component</div>`
+      })
+      app.component('tab-posts', {
+        template: `<div class="demo-tab">Posts Component</div>`
+      })
+      app.component('tab-archive', {
+        template: `<div class="demo-tab">Archive Component</div>`
+      })
+      const vm = app.mount('#app')
+    </script>
+    
+  </body>
+</html>
